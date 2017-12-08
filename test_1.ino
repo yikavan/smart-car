@@ -1,24 +1,24 @@
-#define senll 4//×î×ó
+#define senll 4//æœ€å·¦
 #define senl 3
-#define senc 2//ÖĞ¼ä
+#define senc 2//ä¸­é—´
 #define senr 5
-#define senrr 6//×îÓÒ
-#define senred 9//ºìÍâ±ÚÕÏ Õâ¸öµØ·½ÒªÄãÃÇ×Ô¼º¾ö¶¨
-#define ENA1 10//×óµç»ú
+#define senrr 6//æœ€å³
+#define senred 9//çº¢å¤–å£éšœ
+#define ENA1 10//å·¦ç”µæœº
 #define IN1 7
 #define IN2 8
-#define ENA2 11//ÓÒµç»ú
+#define ENA2 11//å³ç”µæœº
 #define IN3 12
 #define IN4 13
 int num1, num2, num3, num4, num5;
 int p = 0;
 int check()
 {
-	//¶Áµ½ºÚÉ«ÊÇ1
-	//ÒªÈÃºÚÉ«ÒÀ´ÎÎª-2 -1 0 1 2
-	//Ä¿µÄÊÇÈÃsum>0Ê±ÓÒ×ª
-	//sum<0Ê±×ó×ª
-	//sum==0Ê±Ö±×ß
+	//è¯»åˆ°é»‘è‰²æ˜¯1
+	//è¦è®©é»‘è‰²ä¾æ¬¡ä¸º-2 -1 0 1 2
+	//ç›®çš„æ˜¯è®©sum>0æ—¶å³è½¬
+	//sum<0æ—¶å·¦è½¬
+	//sum==0æ—¶ç›´èµ°
 
 	int sum = 0;
 	num1 = digitalRead(senll);
@@ -41,8 +41,7 @@ int checkred()
 {
 	int re;
 	re = digitalRead(senred);
-			//ÄãÃÇ²éÒ»ÏÂÔõÃ´¼à¿ØÊıÖµÈ»ºó¸ù¾İÊıÖµ¾ö¶¨
-	return  re ;//ºìÍâ´«¸ĞÆ÷Òª·µ»ØÒ»¸öÖµ
+	return  re ;//çº¢å¤–ä¼ æ„Ÿå™¨è¦è¿”å›ä¸€ä¸ªå€¼
 }
 void turnL(int x, int y)
 {
@@ -66,7 +65,7 @@ void turnR(int x, int y)
 }
 void runforward(int x)
 {
-	//Ö±×ßÁ½±ßÏàµÈ
+	//ç›´èµ°ä¸¤è¾¹ç›¸ç­‰
 	analogWrite(ENA1, x+2);
 	digitalWrite(IN1, HIGH);
 	digitalWrite(IN2, LOW);
@@ -74,7 +73,6 @@ void runforward(int x)
 	analogWrite(ENA2, x);
 	digitalWrite(IN3, HIGH);
 	digitalWrite(IN4, LOW);
-//	Serial.println("                runforward");
 }
 void work(int judge,int x)
 {
@@ -107,17 +105,16 @@ void work(int judge,int x)
 }
 void cross(int x)
 {
-	int y=350;//ÓÃyÀ´¿ØÖÆÑÓÊ±
 	int temp;
-	//Ë¼Â·ÊÇÏÈ×ó×ª È»ºóÖ±×ß È»ºóÓÒ×ª
+	//æ€è·¯æ˜¯å…ˆå·¦è½¬ ç„¶åç›´èµ° ç„¶åå³è½¬
 	turnL(x, 0);
 	delay(80);
-					//ÕâÀï²»ÓÃºìÍâ¼ì²âµÄÔ­ÒòÊÇ´«¸ĞÆ÷Ã»°ì·¨×ªÍä£¬¾ÍÃ»°ì·¨Ò»Ö±¼à¿Ø
+	//è¿™é‡Œä¸ç”¨çº¢å¤–æ£€æµ‹çš„åŸå› æ˜¯ä¼ æ„Ÿå™¨æ²¡åŠæ³•è½¬å¼¯ï¼Œå°±æ²¡åŠæ³•ä¸€ç›´ç›‘æ§
 	runforward(x);
-	delay(2250);		//Ö±×ßµÄÊ±¼ä µ±È»ºÍÖ®Ç°²»Í¬
-						//ÈÃĞ¡³µ×ª³öÈ¥
-	turnR(x, 0);		//ÓÒ×ª
-	delay(140);		//Õâ¸öÑÓÊ±Ó¦¸Ã±ÈÖ®Ç°¸ü¾Ã
+	delay(2250);		//ç›´èµ°çš„æ—¶é—´ å½“ç„¶å’Œä¹‹å‰ä¸åŒ
+				//è®©å°è½¦è½¬å‡ºå»
+	turnR(x, 0);		//å³è½¬
+	delay(140);		//è¿™ä¸ªå»¶æ—¶åº”è¯¥æ¯”ä¹‹å‰æ›´ä¹…
 	runforward(x);
 	temp = check();
 	while (temp == 0)
@@ -176,12 +173,12 @@ void setup()
 
 void loop()
 {
-	int x = 245, y = 127;		 //x,y·Ö±ğ´ú±íÒ»¸öÊı
+	int x = 245, y = 127;		 //x,yåˆ†åˆ«ä»£è¡¨ä¸€ä¸ªæ•°
 	/*
-	Ë¼Â·ÊÇÒ»Ö±ÏÈ¼ì²âºìÍâÈ»ºó¼ì²âÈüµÀ
-	±ÚÕÏµÄ²Ù×÷¿´ÉÏÃæµÄcross()
+	æ€è·¯æ˜¯ä¸€ç›´å…ˆæ£€æµ‹çº¢å¤–ç„¶åæ£€æµ‹èµ›é“
+	å£éšœçš„æ“ä½œçœ‹ä¸Šé¢çš„cross()
 	*/
-	if (!checkred()&&p == 0)				//¼ì²éµ½±ÚÕÏÊ±µÄ¹¤×÷
+	if (!checkred()&&p == 0)//æ£€æŸ¥åˆ°å£éšœæ—¶çš„å·¥ä½œ
 		cross(x);
 	work(check(),x);
 
